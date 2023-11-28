@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "emitDeclarationOnly": true,
+    "noEmit": false
+  },
+  "include": [
+    "src/components/**/*.ts",
+    "src/components/**/*.vue",
+    "src/components/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "tests"
+  ]
+}

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 
-interface ButtonProps {
+export interface ButtonProps {
   type?: 'primary' | 'success' | 'warning' | 'danger';
   size?: 'medium' | 'small' | 'mini';
   loading?: boolean;
