@@ -1,0 +1,12 @@
+{
+  "name": "vue3-imitate",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
