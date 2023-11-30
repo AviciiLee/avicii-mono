@@ -1,5 +1,5 @@
 import { mutableHandlers } from './baseHandlers'
-
+import { isObject } from '@avicii/shared'
 export const reactiveMap = new WeakMap<object, any>()
 
 export function reactive(target: object) {
@@ -18,4 +18,8 @@ function createReactiveObject(
   const proxy = new Proxy(target, mutableHandlers)
   proxyMap.set(target, proxy)
   return proxy
+}
+
+export function toReactive<T extends unknown>(value: T) {
+  return isObject(value) ? reactive(value as object) : value
 }
