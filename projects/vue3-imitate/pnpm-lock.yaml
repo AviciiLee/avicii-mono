@@ -17,7 +17,9 @@ importers:
   packages/vue:
     specifiers:
       '@avicii/reactivity': workspace:^1.0.0
+      '@avicii/runtime-core': workspace:^1.0.0
       '@avicii/shared': workspace:^1.0.0
     dependencies:
       '@avicii/reactivity': link:../reactivity
+      '@avicii/runtime-core': link:../runtime-core
       '@avicii/shared': link:../shared

@@ -1,5 +1,5 @@
 {
-  "name": "@avicii/reactivity",
+  "name": "@avicii/runtime-core",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -8,8 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@avicii/shared": "workspace:^1.0.0"
-  }
+  "license": "ISC"
 }
