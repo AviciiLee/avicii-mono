@@ -1,4 +1,6 @@
-type KeyToDepMap = Map<any, Set<ReactiveEffect>>
+import { isArray } from '@avicii/shared'
+import { createDep, type Dep } from './dep'
+type KeyToDepMap = Map<any, Dep>
 const targetMap = new WeakMap<object, KeyToDepMap>()
 
 export let activeEffect: ReactiveEffect | undefined = undefined
@@ -12,17 +14,36 @@ export function track(target: object, key: string | symbol) {
   }
   let deps = propMap.get(key)
   if (!deps) {
-    propMap.set(key, (deps = new Set<ReactiveEffect>()))
+    propMap.set(key, (deps = createDep()))
   }
-  deps.add(activeEffect)
+  trackEffects(deps)
+}
+
+export function trackEffects(dep: Dep) {
+  dep.add(activeEffect!)
 }
 
 export function trigger(target: object, key: string | symbol, value: unknown) {
   console.log('trigger:', key)
-  let deps = targetMap.get(target)?.get(key)
-  if (deps) {
-    deps.forEach((effect) => effect.run())
+  let dep = targetMap.get(target)?.get(key)
+  if (dep) {
+    triggerEffects(dep)
   }
+}
+
+export function triggerEffects(dep: Dep) {
+  const effects = isArray(dep) ? dep : [...dep]
+  for (const effect of effects) {
+    triggerEffect(effect)
+  }
+}
+
+/**
+ * 触发指定依赖的副作用
+ * @param effect
+ */
+export function triggerEffect(effect: ReactiveEffect) {
+  effect.run()
 }
 
 export function effect<T = any>(fn: () => T) {

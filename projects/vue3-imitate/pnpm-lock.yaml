@@ -6,7 +6,10 @@ importers:
     specifiers: {}
 
   packages/reactivity:
-    specifiers: {}
+    specifiers:
+      '@avicii/shared': workspace:^1.0.0
+    dependencies:
+      '@avicii/shared': link:../shared
 
   packages/shared:
     specifiers: {}
