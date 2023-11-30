@@ -1,10 +1,10 @@
 {
-  "name": "vue3-imitate",
+  "name": "@avicii/shared",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
+  "main": "src/index.ts",
   "scripts": {
-    "build": "rollup -c -w"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

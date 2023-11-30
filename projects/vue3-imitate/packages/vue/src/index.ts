@@ -1,1 +1,1 @@
-export const a = 11111
+export * from '@avicii/reactivity'

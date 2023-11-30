@@ -1,1 +1,1 @@
-const fn = a => {}
+export { reactive } from './reactive'
