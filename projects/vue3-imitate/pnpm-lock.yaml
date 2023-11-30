@@ -11,6 +11,14 @@ importers:
     dependencies:
       '@avicii/shared': link:../shared
 
+  packages/runtime-core:
+    specifiers:
+      '@avicii/reactivity': workspace:^1.0.0
+      '@avicii/shared': workspace:^1.0.0
+    dependencies:
+      '@avicii/reactivity': link:../reactivity
+      '@avicii/shared': link:../shared
+
   packages/shared:
     specifiers: {}
 

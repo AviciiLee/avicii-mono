@@ -9,18 +9,25 @@
   <body>
     <div id="app"></div>
     <script>
-      const { ref, watch } = Vue
-      const obj = ref({
+      const { reactive, watch } = Vue
+      const obj = reactive({
         name: 'avicii'
       })
 
-      watch(obj, (newVal, oldVal) => {
-        console.log('watch执行')
-        document.querySelector('#app').innerHTML = newVal.name
-      })
+      watch(
+        obj,
+        (newVal, oldVal) => {
+          console.log('watch执行')
+          console.log(newVal)
+          // document.querySelector('#app').innerHTML = newVal.name
+        },
+        {
+          immediate: true
+        }
+      )
 
       setTimeout(() => {
-        obj.value.name = 'avicii2'
+        obj.name = 'avicii2'
       }, 2000)
     </script>
   </body>

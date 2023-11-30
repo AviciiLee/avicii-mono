@@ -90,4 +90,6 @@ export class ReactiveEffect<T = any> {
     // activeEffect = undefined
     return this.fn()
   }
+
+  stop() {}
 }

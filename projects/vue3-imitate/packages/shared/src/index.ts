@@ -7,3 +7,4 @@ export const isFunction = (value) => {
 }
 export const hasChanged = (value: any, oldValue: any): boolean => !Object.is(value, oldValue)
 export const extend = Object.assign
+export const EMPTY_OBJ: { readonly [key: string]: any } = {}

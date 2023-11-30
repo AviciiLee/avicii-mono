@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@avicii/reactivity": "workspace:^1.0.0",
+    "@avicii/shared": "workspace:^1.0.0"
+  }
 }
