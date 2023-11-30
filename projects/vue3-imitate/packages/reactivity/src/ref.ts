@@ -40,7 +40,8 @@ export class RefImpl<T> {
   set value(newValue) {
     // 判断是否变化
     if (hasChanged(this._rawValue, newValue)) {
-      this._value = newValue
+      this._rawValue = newValue
+      this._value = this.__v_isShallow ? newValue : toReactive(newValue)
       triggerRefValue(this)
     }
   }
