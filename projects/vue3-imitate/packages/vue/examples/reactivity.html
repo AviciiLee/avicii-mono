@@ -7,12 +7,19 @@
     <script src="../dist/vue.js"></script>
   </head>
   <body>
+    <div id="app"></div>
     <script>
-      const { reactive } = Vue
+      const { reactive, effect } = Vue
       const obj = {
         name: 'avicii'
       }
-      console.log(reactive(obj))
+      const proxyObj = reactive(obj)
+      effect(() => {
+        document.querySelector('#app').innerHTML = proxyObj.name
+      })
+      setTimeout(() => {
+        proxyObj.name = 'avicii2'
+      }, 2000)
     </script>
   </body>
 </html>
