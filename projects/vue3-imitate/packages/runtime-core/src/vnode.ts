@@ -6,6 +6,7 @@ export interface VNode {
   props: any
   children: any
   shapeFlag: number
+  key: any
 }
 
 export const Text = Symbol('Text')
@@ -58,4 +59,8 @@ export function normalizeChildren(vNode: VNode, children: any) {
   }
   vNode.children = children
   vNode.shapeFlag |= type
+}
+
+export function isSameVNodeType(n1: VNode, n2: VNode) {
+  return n1.type === n2.type && n1.key === n2.key
 }

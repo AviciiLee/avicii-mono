@@ -5,5 +5,11 @@ export const nodeOps = {
   createElement: (tag) => document.createElement(tag),
   setElementText: (el: Element, text: string) => {
     el.textContent = text
+  },
+  remove: (child) => {
+    const parent = child.parentNode
+    if (parent) {
+      parent.removeChild(child)
+    }
   }
 }

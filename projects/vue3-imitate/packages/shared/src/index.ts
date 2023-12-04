@@ -12,3 +12,4 @@ export const EMPTY_OBJ: { readonly [key: string]: any } = {}
 export const isString = (value) => typeof value === 'string'
 const onRe = /^on[^a-z]/
 export const isOn = (key: string) => onRe.test(key)
+export const isModelEvent = (key: string) => key.startsWith('onUpdate:')

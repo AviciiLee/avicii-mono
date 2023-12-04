@@ -13,18 +13,30 @@
       const vnode = h(
         'div',
         {
-          class: [
-            {
-              test: true,
-              red: true
-            },
-            'foo',
-            'bar'
-          ]
+          class: 'foo',
+          style: {
+            color: 'red'
+          }
         },
         'hello world '
       )
       render(vnode, document.querySelector('#app'))
+
+      setTimeout(() => {
+        const vnode = h(
+          'button',
+          {
+            onClick() {
+              alert('hello')
+            },
+            style: {
+              color: 'green'
+            }
+          },
+          '按钮'
+        )
+        render(vnode, document.querySelector('#app'))
+      }, 2000)
     </script>
   </body>
 </html>
