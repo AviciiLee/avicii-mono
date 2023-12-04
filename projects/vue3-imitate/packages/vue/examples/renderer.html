@@ -7,8 +7,9 @@
     <script src="../dist/vue.js"></script>
   </head>
   <body>
+    <div id="app"></div>
     <script>
-      const { h, Text, Fragment, Comment } = Vue
+      const { h, render } = Vue
       const vnode = h(
         'div',
         {
@@ -21,15 +22,9 @@
             'bar'
           ]
         },
-        ['hello world', 'hello world2']
+        'hello world '
       )
-      console.log(vnode)
-      // const text = h(Text, null, 'hello world')
-      // const comment = h(Comment, null, 'hello world')
-      // const fragment = h(Fragment, null, [text, comment])
-      // console.log(text)
-      // console.log(comment)
-      // console.log(fragment)
+      render(vnode, document.querySelector('#app'))
     </script>
   </body>
 </html>

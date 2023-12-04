@@ -1,5 +1,5 @@
 {
-  "name": "@avicii/runtime-core",
+  "name": "@avicii/runtime-dom",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -10,8 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@avicii/reactivity": "workspace:^1.0.0",
-    "@avicii/runtime-dom": "workspace:^1.0.0",
+    "@avicii/runtime-core": "workspace:^1.0.0",
     "@avicii/shared": "workspace:^1.0.0"
   }
 }

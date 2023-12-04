@@ -14,9 +14,19 @@ importers:
   packages/runtime-core:
     specifiers:
       '@avicii/reactivity': workspace:^1.0.0
+      '@avicii/runtime-dom': workspace:^1.0.0
       '@avicii/shared': workspace:^1.0.0
     dependencies:
       '@avicii/reactivity': link:../reactivity
+      '@avicii/runtime-dom': link:../runtime-dom
+      '@avicii/shared': link:../shared
+
+  packages/runtime-dom:
+    specifiers:
+      '@avicii/runtime-core': workspace:^1.0.0
+      '@avicii/shared': workspace:^1.0.0
+    dependencies:
+      '@avicii/runtime-core': link:../runtime-core
       '@avicii/shared': link:../shared
 
   packages/shared:
@@ -26,8 +36,10 @@ importers:
     specifiers:
       '@avicii/reactivity': workspace:^1.0.0
       '@avicii/runtime-core': workspace:^1.0.0
+      '@avicii/runtime-dom': workspace:^1.0.0
       '@avicii/shared': workspace:^1.0.0
     dependencies:
       '@avicii/reactivity': link:../reactivity
       '@avicii/runtime-core': link:../runtime-core
+      '@avicii/runtime-dom': link:../runtime-dom
       '@avicii/shared': link:../shared

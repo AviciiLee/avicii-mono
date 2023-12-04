@@ -1,5 +1,5 @@
 import { ShapeFlags, isArray, isFunction, isObject, isString } from '@avicii/shared'
-
+import { normalizeClass } from './normalizeProp'
 export interface VNode {
   __v_isVNode: true
   type: any
@@ -17,6 +17,12 @@ export function isVNode(value): value is VNode {
 }
 
 export function createVNode(type: any, props?: any, children?: any): VNode {
+  if (props) {
+    let { class: klass, style } = props
+    if (klass && !isString(klass)) {
+      props.class = normalizeClass(klass)
+    }
+  }
   const shapeFlag = isString(type)
     ? ShapeFlags.ELEMENT
     : isObject(type)

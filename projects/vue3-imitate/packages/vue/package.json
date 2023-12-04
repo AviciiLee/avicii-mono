@@ -12,6 +12,7 @@
   "dependencies": {
     "@avicii/reactivity": "workspace:^1.0.0",
     "@avicii/runtime-core": "workspace:^1.0.0",
+    "@avicii/runtime-dom": "workspace:^1.0.0",
     "@avicii/shared": "workspace:^1.0.0"
   }
 }
