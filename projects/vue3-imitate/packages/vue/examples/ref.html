@@ -10,15 +10,14 @@
     <div id="app"></div>
     <script>
       const { ref, effect } = Vue
-      const obj = ref({
-        name: 'avicii'
-      })
+      let arr = [1, 2, 34, 5]
+      const obj = ref(arr)
       console.log(obj)
       effect(() => {
-        document.querySelector('#app').innerHTML = obj.value.name
+        document.querySelector('#app').innerHTML = obj.value.join(',')
       })
       setTimeout(() => {
-        obj.value.name = 'avicii2'
+        obj.value.push(6)
       }, 2000)
     </script>
   </body>
