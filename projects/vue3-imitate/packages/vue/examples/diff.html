@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      // 1. 自前向后 isSameVNodeType 比对,相同就走patch
+      const { h, render } = Vue
+      const vnode = h('ul', [
+        h(
+          'li',
+          {
+            key: 3
+          },
+          'c'
+        ),
+        h(
+          'li',
+          {
+            key: 1
+          },
+          'a'
+        ),
+        h(
+          'li',
+          {
+            key: 2
+          },
+          'b'
+        )
+      ])
+      const vnode2 = h('ul', [
+        h(
+          'li',
+          {
+            key: 1
+          },
+          'a'
+        ),
+        h(
+          'li',
+          {
+            key: 2
+          },
+          'b'
+        )
+      ])
+      render(vnode, document.querySelector('#app'))
+      setTimeout(() => {
+        render(vnode2, document.querySelector('#app'))
+      }, 2000)
+    </script>
+  </body>
+</html>

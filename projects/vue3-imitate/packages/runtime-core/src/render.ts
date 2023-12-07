@@ -124,7 +124,8 @@ function baseCreateRenderer(options: RedererOptions): any {
       if (prevShapeFlag & ShapeFlags.ARRAY_CHILDREN) {
         // 新旧节点都是数组
         if (shapeFlag & ShapeFlags.ARRAY_CHILDREN) {
-          // diff
+          // diff算法
+          patchKeyedChildren(c1, c2, container, anchor)
         } else {
           // 移除老节点
         }
@@ -140,6 +141,55 @@ function baseCreateRenderer(options: RedererOptions): any {
     }
   }
 
+  const patchKeyedChildren = (oldChildren, newChildren, container, parentAnchor) => {
+    let i = 0
+    let newChildrenLen = newChildren.length
+    let oldChildrenEnd = oldChildren.length - 1
+    let newChildrenEnd = newChildrenLen - 1
+    //1. 自前向后比对
+    while (i <= oldChildrenEnd && i <= newChildrenEnd) {
+      const oldVnode = oldChildren[i]
+      const newVnode = newChildren[i]
+      if (isSameVNodeType(oldVnode, newVnode)) {
+        patch(oldVnode, newVnode, container, parentAnchor)
+      } else {
+        break
+      }
+      ++i
+    }
+    //2. 自后向前比对
+    while (i <= oldChildrenEnd && i <= newChildrenEnd) {
+      const oldVnode = oldChildren[oldChildrenEnd]
+      const newVnode = newChildren[newChildrenEnd]
+      if (isSameVNodeType(oldVnode, newVnode)) {
+        patch(oldVnode, newVnode, container, parentAnchor)
+      } else {
+        break
+      }
+      oldChildrenEnd--
+      newChildrenEnd--
+    }
+    //3. 新节点 > 旧节点
+    if (i > oldChildrenEnd) {
+      if (i <= newChildrenEnd) {
+        const nextPos = newChildrenEnd + 1
+        const anchor = nextPos < newChildrenLen ? newChildren[nextPos].el : parentAnchor
+        while (i <= newChildrenEnd) {
+          patch(null, normalizeVNode(newChildren[i]), container, anchor)
+          i++
+        }
+      }
+    }
+    //4. 旧节点 > 新节点
+    else if (i > newChildrenEnd) {
+      while (i <= oldChildrenEnd) {
+        unmount(oldChildren[i])
+        i++
+      }
+    }
+    // 乱序对比 最长递增子序列
+  }
+
   const mountElement = (vnode, container: Element, anchor = null) => {
     const { type, props, children, shapeFlag } = vnode
     // 创建元素
@@ -148,6 +198,7 @@ function baseCreateRenderer(options: RedererOptions): any {
     if (shapeFlag & ShapeFlags.TEXT_CHILDREN) {
       hostSetElementText(el, children)
     } else if (shapeFlag & ShapeFlags.ARRAY_CHILDREN) {
+      mountChildren(vnode.children, el, anchor)
     }
     // 处理属性
     if (props) {
