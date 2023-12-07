@@ -7,6 +7,8 @@ export interface RedererOptions {
   insert(el: Element, parent: Element, anchor): void
   createElement(type: string): Element
   remove(el: Element)
+  createText(text: string)
+  setText(node, text)
 }
 
 export function createRenderer(options: RedererOptions) {
@@ -19,8 +21,23 @@ function baseCreateRenderer(options: RedererOptions): any {
     patchProps: hostPatchProp,
     createElement: hostCreateElement,
     setElementText: hostSetElementText,
-    remove: hostRemove
+    remove: hostRemove,
+    createText: hostCreateText,
+    setText: hostSetText
   } = options
+
+  const processText = (oldVnode, newVnode, container: Element, anchor = null) => {
+    if (oldVnode === null) {
+      newVnode.el = hostCreateText(newVnode.children)
+      hostInsert(newVnode.el, container, anchor)
+    } else {
+      const el = (newVnode.el = oldVnode.el)
+      if (newVnode.children != oldVnode.children) {
+        hostSetText(el, newVnode.children)
+      }
+    }
+  }
+
   const processElement = (oldVnode, newVnode, container: Element, anchor = null) => {
     if (oldVnode === null) {
       mountElement(newVnode, container, anchor)
@@ -120,6 +137,7 @@ function baseCreateRenderer(options: RedererOptions): any {
     const { type, shapeFlag } = newVnode
     switch (type) {
       case Text:
+        processText(oldVnode, newVnode, container, anchor)
         break
       case Comment:
         break
