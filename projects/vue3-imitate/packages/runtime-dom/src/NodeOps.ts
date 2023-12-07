@@ -15,5 +15,6 @@ export const nodeOps = {
   createText: (text) => document.createTextNode(text),
   setText: (node, text) => {
     node.nodeValue = text
-  }
+  },
+  createComment: (comment) => document.createComment(comment)
 }

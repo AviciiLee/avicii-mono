@@ -9,6 +9,7 @@ export interface RedererOptions {
   remove(el: Element)
   createText(text: string)
   setText(node, text)
+  createComment(text: string)
 }
 
 export function createRenderer(options: RedererOptions) {
@@ -23,8 +24,19 @@ function baseCreateRenderer(options: RedererOptions): any {
     setElementText: hostSetElementText,
     remove: hostRemove,
     createText: hostCreateText,
-    setText: hostSetText
+    setText: hostSetText,
+    createComment: hostCreateComment
   } = options
+
+  const processComment = (oldVnode, newVnode, container: Element, anchor = null) => {
+    if (oldVnode === null) {
+      newVnode.el = hostCreateComment(newVnode.children as string) || ''
+      hostInsert(newVnode.el, container, anchor)
+    } else {
+      newVnode.el = oldVnode.el
+      // needn't support
+    }
+  }
 
   const processText = (oldVnode, newVnode, container: Element, anchor = null) => {
     if (oldVnode === null) {
@@ -140,6 +152,7 @@ function baseCreateRenderer(options: RedererOptions): any {
         processText(oldVnode, newVnode, container, anchor)
         break
       case Comment:
+        processComment(oldVnode, newVnode, container, anchor)
         break
       case Fragment:
         break
