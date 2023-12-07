@@ -1,5 +1,6 @@
 import { EMPTY_OBJ, ShapeFlags } from '@avicii/shared'
 import { Comment, Fragment, Text, VNode, isSameVNodeType } from './vnode'
+import { normalizeVNode } from './componentRederUtils'
 
 export interface RedererOptions {
   patchProps(el: Element, key: string, preValue: any, nextValue: any): void
@@ -27,6 +28,26 @@ function baseCreateRenderer(options: RedererOptions): any {
     setText: hostSetText,
     createComment: hostCreateComment
   } = options
+
+  const processFragment = (oldVnode, newVnode, container: Element, anchor = null) => {
+    if (oldVnode === null) {
+      mountChildren(newVnode.children, container, anchor)
+    } else {
+      patchChildren(oldVnode, newVnode, container, anchor)
+    }
+  }
+
+  const mountChildren = (children, container, anchor) => {
+    if (typeof children === 'string') {
+      children = children.split('')
+    }
+    console.log(children, '@')
+    for (let index = 0; index < children.length; index++) {
+      const child = (children[index] = normalizeVNode(children[index]))
+      console.log(child, '!@')
+      patch(null, child, container, anchor)
+    }
+  }
 
   const processComment = (oldVnode, newVnode, container: Element, anchor = null) => {
     if (oldVnode === null) {
@@ -155,6 +176,7 @@ function baseCreateRenderer(options: RedererOptions): any {
         processComment(oldVnode, newVnode, container, anchor)
         break
       case Fragment:
+        processFragment(oldVnode, newVnode, container, anchor)
         break
       default:
         if (shapeFlag & ShapeFlags.ELEMENT) {
