@@ -3,6 +3,7 @@ import { patchClass } from './modules/class'
 import { patchDomProp } from './modules/props'
 import { patchAttr } from './modules/attr'
 import { patchStyle } from './modules/style'
+import { patchEvent } from './modules/event'
 
 export const patchProps = (el: Element, key, prevValue, nextValue) => {
   if (key === 'class') {
@@ -10,7 +11,8 @@ export const patchProps = (el: Element, key, prevValue, nextValue) => {
   } else if (key === 'style') {
     patchStyle(el, prevValue, nextValue)
   } else if (isOn(key)) {
-    // patchEvent() 10 /16
+    console.log(key, '@@@')
+    patchEvent(el, key, prevValue, nextValue)
   } else if (shouldSetAsProp(el, key)) {
     patchDomProp(el, key, nextValue)
   } else {
